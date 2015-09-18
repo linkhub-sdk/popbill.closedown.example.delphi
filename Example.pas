@@ -26,13 +26,21 @@ type
     btnGetPopbillURL_login: TButton;
     btnGetPopbillURL_chrg: TButton;
     GroupBox3: TGroupBox;
-    btnGetPartnerPoint: TButton;
     GroupBox4: TGroupBox;
     GroupBox5: TGroupBox;
     txtCheckCorpNum: TEdit;
     Label3: TLabel;
     btnCheckCorpNum: TButton;
     btnCheckCorpNums: TButton;
+    btnCheckID: TButton;
+    btnGetPartnerPoint: TButton;
+    GroupBox6: TGroupBox;
+    btnRegistContact: TButton;
+    btnListContact: TButton;
+    btnUpdateContact: TButton;
+    btnGetCorpInfo: TButton;
+    btnUpdateCorpInfo: TButton;
+    GroupBox7: TGroupBox;
     procedure FormCreate(Sender: TObject);
     procedure btnCheckCorpNumClick(Sender: TObject);
     procedure btnCheckCorpNumsClick(Sender: TObject);
@@ -43,6 +51,12 @@ type
     procedure btnGetPopbillURL_loginClick(Sender: TObject);
     procedure btnGetPopbillURL_chrgClick(Sender: TObject);
     procedure btnGetPartnerPointClick(Sender: TObject);
+    procedure btnCheckIDClick(Sender: TObject);
+    procedure btnRegistContactClick(Sender: TObject);
+    procedure btnListContactClick(Sender: TObject);
+    procedure btnUpdateContactClick(Sender: TObject);
+    procedure btnGetCorpInfoClick(Sender: TObject);
+    procedure btnUpdateCorpInfoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,6 +79,13 @@ begin
         //연동환경 설정값, true(테스트용), false(상업용)
         closedownService.IsTest := true;
 end;
+
+function BoolToStr(b:Boolean):String;
+begin
+    if b = true then BoolToStr:='True';
+    if b = false then BoolToStr:='False';
+end;
+
 
 procedure TfrmExample.btnCheckCorpNumClick(Sender: TObject);
 var
@@ -265,6 +286,162 @@ begin
         end;
 
         ShowMessage('잔여포인트 : ' + FloatToStr(balance));
+end;
+
+procedure TfrmExample.btnCheckIDClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        try
+                response := closedownService.CheckID(txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
+end;
+
+procedure TfrmExample.btnRegistContactClick(Sender: TObject);
+var
+        response : TResponse;
+        joinInfo : TJoinContact;
+begin
+        joinInfo.id := 'test_201509173';
+        joinInfo.pwd := 'thisispassword';
+        joinInfo.personName := '담당자성명';
+        joinInfo.tel := '070-7510-3710';
+        joinInfo.hp := '010-1111-2222';
+        joinInfo.fax := '02-6442-9700';
+        joinInfo.email := 'test@test.com';
+        joinInfo.searchAllAllowYN := false;
+        joinInfo.mgrYN     := false;
+
+        try
+                response := closedownService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
+end;
+
+procedure TfrmExample.btnListContactClick(Sender: TObject);
+var
+        InfoList : TContactInfoList;
+        tmp : string;
+        i : Integer;
+begin
+
+        try
+                InfoList := closedownService.ListContact(txtCorpNum.text,txtUserID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+        tmp := 'id | email | hp | personName | searchAllAlloyYN | tel | fax | mgrYN | regDT' + #13;
+        for i := 0 to Length(InfoList) -1 do
+        begin
+            tmp := tmp + InfoList[i].id + ' | ';
+            tmp := tmp + InfoList[i].email + ' | ';
+            tmp := tmp + InfoList[i].hp + ' | ';
+            tmp := tmp + InfoList[i].personName + ' | ';
+            tmp := tmp + BoolToStr(InfoList[i].searchAllAllowYN) + ' | ';
+            tmp := tmp + InfoList[i].tel + ' | ';
+            tmp := tmp + InfoList[i].fax + ' | ';
+            tmp := tmp + BoolToStr(InfoList[i].mgrYN) + ' | ';
+            tmp := tmp + InfoList[i].regDT + #13;
+        end;
+
+        ShowMessage(tmp);
+
+end;
+
+procedure TfrmExample.btnUpdateContactClick(Sender: TObject);
+var
+        contactInfo : TContactInfo;
+        response : TResponse;
+begin
+        contactInfo := TContactInfo.Create;
+
+        contactInfo.personName := '테스트 담당자';
+        contactInfo.tel := '070-7510-3710';
+        contactInfo.hp := '010-4324-1111';
+        contactInfo.email := 'test@test.com';
+        contactInfo.fax := '02-6442-9799';
+        contactInfo.searchAllAllowYN := true;
+        contactInfo.mgrYN := false;
+
+        try
+                response := closedownService.UpdateContact(txtCorpNum.text,contactInfo,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
+end;
+
+procedure TfrmExample.btnGetCorpInfoClick(Sender: TObject);
+var
+        corpInfo : TCorpInfo;
+        tmp : string;
+begin
+        try
+                corpInfo := closedownService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'CorpName : ' + corpInfo.CorpName + #13;
+        tmp := tmp + 'CeoName : ' + corpInfo.CeoName + #13;
+        tmp := tmp + 'BizType : ' + corpInfo.BizType + #13;
+        tmp := tmp + 'BizClass : ' + corpInfo.BizClass + #13;
+        tmp := tmp + 'Addr : ' + corpInfo.Addr + #13;
+
+        ShowMessage(tmp);
+
+
+end;
+
+procedure TfrmExample.btnUpdateCorpInfoClick(Sender: TObject);
+var
+        corpInfo : TCorpInfo;
+        response : TResponse;
+begin
+        corpInfo := TCorpInfo.Create;
+
+        corpInfo.ceoname := '대표자명';
+        corpInfo.corpName := '링크허브';
+        corpInfo.addr := '서울특별시 강남구 영동대로 517';
+        corpInfo.bizType := '업태';
+        corpInfo.bizClass := '업종';
+
+        try
+                response := closedownService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;
 
 end.
