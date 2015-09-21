@@ -310,15 +310,15 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
-        joinInfo.id := 'test_201509173';
-        joinInfo.pwd := 'thisispassword';
-        joinInfo.personName := '담당자성명';
-        joinInfo.tel := '070-7510-3710';
-        joinInfo.hp := '010-1111-2222';
-        joinInfo.fax := '02-6442-9700';
-        joinInfo.email := 'test@test.com';
-        joinInfo.searchAllAllowYN := false;
-        joinInfo.mgrYN     := false;
+        joinInfo.id := 'userid';                        // [필수] 아이디 (6자 이상 20자 미만)
+        joinInfo.pwd := 'thisispassword';               // [필수] 비밀번호 (6자 이상 20자 미만)
+        joinInfo.personName := '담당자성명';            // [필수] 담당자명(한글이나 영문 30자 이내)
+        joinInfo.tel := '070-7510-3710';                // [필수] 연락처
+        joinInfo.hp := '010-1111-2222';                 // 휴대폰번호
+        joinInfo.fax := '02-6442-9700';                 // 팩스번호
+        joinInfo.email := 'test@test.com';              // [필수] 이메일
+        joinInfo.searchAllAllowYN := false;             // 조회권한(true 회사조회/ false 개인조회)
+        joinInfo.mgrYN     := false;                    // 관리자 권한여부 
 
         try
                 response := closedownService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
@@ -373,13 +373,13 @@ var
 begin
         contactInfo := TContactInfo.Create;
 
-        contactInfo.personName := '테스트 담당자';
-        contactInfo.tel := '070-7510-3710';
-        contactInfo.hp := '010-4324-1111';
-        contactInfo.email := 'test@test.com';
-        contactInfo.fax := '02-6442-9799';
-        contactInfo.searchAllAllowYN := true;
-        contactInfo.mgrYN := false;
+        contactInfo.personName := '테스트 담당자';      // 담당자명
+        contactInfo.tel := '070-7510-3710';             // 연락처
+        contactInfo.hp := '010-4324-1111';              // 휴대폰번호
+        contactInfo.email := 'test@test.com';           // 이메일 주소
+        contactInfo.fax := '02-6442-9799';              // 팩스번호
+        contactInfo.searchAllAllowYN := true;           // 회사조회 권한여부
+        contactInfo.mgrYN := false;                     // 관리자 전환 여부 
 
         try
                 response := closedownService.UpdateContact(txtCorpNum.text,contactInfo,txtUserID.Text);
@@ -426,11 +426,11 @@ var
 begin
         corpInfo := TCorpInfo.Create;
 
-        corpInfo.ceoname := '대표자명';
-        corpInfo.corpName := '링크허브';
-        corpInfo.addr := '서울특별시 강남구 영동대로 517';
-        corpInfo.bizType := '업태';
-        corpInfo.bizClass := '업종';
+        corpInfo.ceoname := '대표자명';         //대표자명
+        corpInfo.corpName := '링크허브_휴폐업조회';    // 회사명
+        corpInfo.bizType := '업태';             // 업태
+        corpInfo.bizClass := '업종';            // 업종
+        corpInfo.addr := '서울특별시 강남구 영동대로 517';  // 주소
 
         try
                 response := closedownService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
