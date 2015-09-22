@@ -427,7 +427,7 @@ begin
         corpInfo := TCorpInfo.Create;
 
         corpInfo.ceoname := '대표자명';         //대표자명
-        corpInfo.corpName := '링크허브_휴폐업조회';    // 회사명
+        corpInfo.corpName := '팝빌';    // 회사명
         corpInfo.bizType := '업태';             // 업태
         corpInfo.bizClass := '업종';            // 업종
         corpInfo.addr := '서울특별시 강남구 영동대로 517';  // 주소

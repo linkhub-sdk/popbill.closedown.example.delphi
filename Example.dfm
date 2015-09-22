@@ -108,7 +108,7 @@ object frmExample: TfrmExample
     TabOrder = 6
     object btnCheckID: TButton
       Left = 8
-      Top = 48
+      Top = 49
       Width = 108
       Height = 25
       Caption = 'ID 중복 확인'
@@ -154,7 +154,7 @@ object frmExample: TfrmExample
   end
   object btnJoinMember: TButton
     Left = 37
-    Top = 85
+    Top = 149
     Width = 108
     Height = 25
     Caption = '회원 가입'
@@ -163,7 +163,7 @@ object frmExample: TfrmExample
   end
   object btnCheckIsMember: TButton
     Left = 37
-    Top = 147
+    Top = 84
     Width = 108
     Height = 25
     Caption = '가입여부 확인'
@@ -213,18 +213,18 @@ object frmExample: TfrmExample
     end
     object btnCheckCorpNum: TButton
       Left = 262
-      Top = 18
-      Width = 75
-      Height = 25
+      Top = 15
+      Width = 83
+      Height = 31
       Caption = '단건 조회'
       TabOrder = 1
       OnClick = btnCheckCorpNumClick
     end
     object btnCheckCorpNums: TButton
-      Left = 353
-      Top = 17
-      Width = 75
-      Height = 25
+      Left = 361
+      Top = 15
+      Width = 88
+      Height = 32
       Caption = '대량 조회'
       TabOrder = 2
       OnClick = btnCheckCorpNumsClick
