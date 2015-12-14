@@ -78,6 +78,9 @@ begin
 
         //연동환경 설정값, true(테스트용), false(상업용)
         closedownService.IsTest := true;
+
+        //Exception 처리 설정값, true(기본값)
+        closedownService.IsThrowException := true;
 end;
 
 function BoolToStr(b:Boolean):String;
