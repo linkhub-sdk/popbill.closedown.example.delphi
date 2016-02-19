@@ -42,6 +42,7 @@ type
     btnUpdateCorpInfo: TButton;
     GroupBox7: TGroupBox;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnCheckCorpNumClick(Sender: TObject);
     procedure btnCheckCorpNumsClick(Sender: TObject);
     procedure btnJoinMemberClick(Sender: TObject);
@@ -87,6 +88,12 @@ function BoolToStr(b:Boolean):String;
 begin
     if b = true then BoolToStr:='True';
     if b = false then BoolToStr:='False';
+end;
+
+procedure TfrmExample.FormClose(Sender: TObject; var Action:TCloseAction);
+begin
+        closedownService.Free;
+        Action := caFree;
 end;
 
 
