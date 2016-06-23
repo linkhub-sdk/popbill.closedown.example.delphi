@@ -35,7 +35,7 @@ object frmExample: TfrmExample
     Left = 16
     Top = 48
     Width = 777
-    Height = 153
+    Height = 169
     Caption = '팝빌 기본 api'
     TabOrder = 14
   end
@@ -86,7 +86,7 @@ object frmExample: TfrmExample
     Left = 165
     Top = 66
     Width = 148
-    Height = 119
+    Height = 143
     Caption = '포인트 관련'
     TabOrder = 7
     object btnGetPartnerPoint: TButton
@@ -97,6 +97,15 @@ object frmExample: TfrmExample
       Caption = '파트너포인트 조회'
       TabOrder = 0
       OnClick = btnGetPartnerPointClick
+    end
+    object btnGetChargeInfo: TButton
+      Left = 8
+      Top = 112
+      Width = 124
+      Height = 25
+      Caption = '과금정보 확인'
+      TabOrder = 1
+      OnClick = btnGetChargeInfoClick
     end
   end
   object GroupBox1: TGroupBox
@@ -190,7 +199,7 @@ object frmExample: TfrmExample
   end
   object GroupBox5: TGroupBox
     Left = 16
-    Top = 216
+    Top = 232
     Width = 569
     Height = 58
     Caption = '휴폐업조회 관련 API'

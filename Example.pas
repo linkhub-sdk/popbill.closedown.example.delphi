@@ -41,6 +41,7 @@ type
     btnGetCorpInfo: TButton;
     btnUpdateCorpInfo: TButton;
     GroupBox7: TGroupBox;
+    btnGetChargeInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnCheckCorpNumClick(Sender: TObject);
@@ -58,6 +59,7 @@ type
     procedure btnUpdateContactClick(Sender: TObject);
     procedure btnGetCorpInfoClick(Sender: TObject);
     procedure btnUpdateCorpInfoClick(Sender: TObject);
+    procedure btnGetChargeInfoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -454,6 +456,28 @@ begin
         end;
 
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+end;
+
+procedure TfrmExample.btnGetChargeInfoClick(Sender: TObject);
+var
+        chargeInfo : TClosedownChargeInfo;
+        tmp : String;
+begin
+
+        try
+                chargeInfo := closedownService.GetChargeInfo(txtCorpNum.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+
+        ShowMessage(tmp);
 end;
 
 end.
