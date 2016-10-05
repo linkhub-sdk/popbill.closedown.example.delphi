@@ -79,7 +79,7 @@ begin
         //휴폐업조회 모듈 초기화.
         closedownService := TClosedownService.Create(LinkID,SecretKey);
 
-        //연동환경 설정값, true(테스트용), false(상업용)
+        //연동환경 설정값, true(개발용), false(상업용)
         closedownService.IsTest := true;
 
         //Exception 처리 설정값, true(기본값)
@@ -172,32 +172,63 @@ var
         response : TResponse;
         joinInfo : TJoinForm;
 begin
-        joinInfo.LinkID := LinkID;  //링크아이디
-        joinInfo.CorpNum := '1231212312'; //사업자번호 '-' 제외.
+        {**********************************************************************}
+        {    파트너의 연동회원으로 회원가입을 요청합니다.                      }
+        {    아이디 중복확인은 btnCheckIDClick 프로시져를 참조하시기 바랍니다. }
+        {**********************************************************************}
+
+        // 링크아이디
+        joinInfo.LinkID := LinkID;
+
+        // 사업자번호 '-' 제외, 10자리
+        joinInfo.CorpNum := '4364364364';
+
+        // 대표자성명, 최대 30자
         joinInfo.CEOName := '대표자성명';
-        joinInfo.CorpName := '상호';
+
+        // 상호명, 최대 70자
+        joinInfo.CorpName := '링크허브';
+
+        // 주소, 최대 300자
         joinInfo.Addr := '주소';
-        joinInfo.ZipCode := '500-100';
+
+        // 업태, 최대 40자
         joinInfo.BizType := '업태';
-        joinInfo.BizClass := '업종';
-        joinInfo.ID     := 'userid';  //6자 이상 20자 미만.
-        joinInfo.PWD    := 'pwd_must_be_long_enough'; //6자 이상 20자 미만.
+
+        // 종목, 최대 40자
+        joinInfo.BizClass := '종목';
+
+        // 아이디, 6자이상 20자 미만
+        joinInfo.ID     := 'userid';
+
+        // 비밀번호, 6자이상 20자 미만
+        joinInfo.PWD    := 'pwd_must_be_long_enough';
+
+        // 담당자명, 최대 30자
         joinInfo.ContactName := '담당자명';
-        joinInfo.ContactTEL :='02-999-9999';
-        joinInfo.ContactHP := '010-1234-5678';
-        joinInfo.ContactFAX := '02-999-9998';
-        joinInfo.ContactEmail := 'test@test.com';
+
+        // 담당자 연락처, 최대 20자
+        joinInfo.ContactTEL :='070-4304-2991';
+
+        // 담당자 휴대폰번호, 최대 20자
+        joinInfo.ContactHP := '010-000-1111';
+
+        // 담당자 팩스번호, 최대 20자
+        joinInfo.ContactFAX := '02-6442-9700';
+
+        // 담당자 메일, 최대 70자
+        joinInfo.ContactEmail := 'code@linkhub.co.kr';
 
         try
                 response := closedownService.JoinMember(joinInfo);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -206,15 +237,15 @@ var
         response : TResponse;
 begin
         try
-                response := closedownService.CheckIsMember(txtCorpNum.text,LinkID);
+                response := closedownService.CheckIsMember(txtCorpNum.text, LinkID);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -226,7 +257,7 @@ begin
                 balance := closedownService.GetBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -243,7 +274,7 @@ begin
                 unitcost := closedownService.GetUnitCost(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -255,13 +286,15 @@ end;
 procedure TfrmExample.btnGetPopbillURL_loginClick(Sender: TObject);
 var
   resultURL : String;
-
 begin
+
+        // 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+
         try
-                resultURL := closedownService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'LOGIN');
+                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -272,13 +305,14 @@ end;
 procedure TfrmExample.btnGetPopbillURL_chrgClick(Sender: TObject);
 var
   resultURL : String;
-
 begin
+        // 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+        
         try
-                resultURL := closedownService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CHRG');
+                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -294,7 +328,7 @@ begin
                 balance := closedownService.GetPartnerBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -310,12 +344,12 @@ begin
                 response := closedownService.CheckID(txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -324,27 +358,45 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
-        joinInfo.id := 'userid';                        // [필수] 아이디 (6자 이상 20자 미만)
-        joinInfo.pwd := 'thisispassword';               // [필수] 비밀번호 (6자 이상 20자 미만)
-        joinInfo.personName := '담당자성명';            // [필수] 담당자명(한글이나 영문 30자 이내)
-        joinInfo.tel := '070-7510-3710';                // [필수] 연락처
-        joinInfo.hp := '010-1111-2222';                 // 휴대폰번호
-        joinInfo.fax := '02-6442-9700';                 // 팩스번호
-        joinInfo.email := 'test@test.com';              // [필수] 이메일
-        joinInfo.searchAllAllowYN := false;             // 조회권한(true 회사조회/ false 개인조회)
-        joinInfo.mgrYN     := false;                    // 관리자 권한여부 
+
+        // [필수] 아이디 (6자 이상 20자 미만)
+        joinInfo.id := 'test_201509173';
+        
+        // [필수] 비밀번호 (6자 이상 20자 미만)
+        joinInfo.pwd := 'thisispassword';
+
+        // [필수] 담당자명(한글이나 영문 30자 이내)
+        joinInfo.personName := '담당자성명';
+
+        // [필수] 연락처
+        joinInfo.tel := '070-4304-2991';
+
+        // 휴대폰번호
+        joinInfo.hp := '010-1111-2222';
+
+        // 팩스번호
+        joinInfo.fax := '02-6442-9700';
+
+        // [필수] 이메일
+        joinInfo.email := 'test@test.com';
+
+        // 조회권한(true 회사조회/ false 개인조회)
+        joinInfo.searchAllAllowYN := false;
+
+        // 관리자 권한여부
+        joinInfo.mgrYN := false;
+
 
         try
-                response := closedownService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
+                response := closedownService.RegistContact(txtCorpNum.text, joinInfo, txtUserID.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
-
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
 procedure TfrmExample.btnListContactClick(Sender: TObject);
@@ -355,14 +407,16 @@ var
 begin
 
         try
-                InfoList := closedownService.ListContact(txtCorpNum.text,txtUserID.text);
+                InfoList := closedownService.ListContact(txtCorpNum.text, txtUserID.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
+
         tmp := 'id | email | hp | personName | searchAllAlloyYN | tel | fax | mgrYN | regDT' + #13;
+        
         for i := 0 to Length(InfoList) -1 do
         begin
             tmp := tmp + InfoList[i].id + ' | ';
@@ -387,24 +441,36 @@ var
 begin
         contactInfo := TContactInfo.Create;
 
-        contactInfo.personName := '테스트 담당자';      // 담당자명
-        contactInfo.tel := '070-7510-3710';             // 연락처
-        contactInfo.hp := '010-4324-1111';              // 휴대폰번호
-        contactInfo.email := 'test@test.com';           // 이메일 주소
-        contactInfo.fax := '02-6442-9799';              // 팩스번호
-        contactInfo.searchAllAllowYN := true;           // 회사조회 권한여부
-        contactInfo.mgrYN := false;                     // 관리자 전환 여부 
+        // 담당자명
+        contactInfo.personName := '테스트 담당자';
 
+        // 연락처
+        contactInfo.tel := '070-4304-2991';
+
+        // 휴대폰번호
+        contactInfo.hp := '010-000-111';
+
+        // 이메일 주소
+        contactInfo.email := 'test@test.com';
+        
+        // 팩스번호
+        contactInfo.fax := '02-6442-9799';
+
+        // 조회권한, true(회사조회), false(개인조회)
+        contactInfo.searchAllAllowYN := true;
+
+        // 관리자권한 설정여부
+        contactInfo.mgrYN := false;
         try
-                response := closedownService.UpdateContact(txtCorpNum.text,contactInfo,txtUserID.Text);
+                response := closedownService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -417,20 +483,18 @@ begin
                 corpInfo := closedownService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        tmp := 'CorpName : ' + corpInfo.CorpName + #13;
-        tmp := tmp + 'CeoName : ' + corpInfo.CeoName + #13;
-        tmp := tmp + 'BizType : ' + corpInfo.BizType + #13;
-        tmp := tmp + 'BizClass : ' + corpInfo.BizClass + #13;
-        tmp := tmp + 'Addr : ' + corpInfo.Addr + #13;
+        tmp := 'CorpName (상호) : ' + corpInfo.CorpName + #13;
+        tmp := tmp + 'CeoName (대표자성명) : ' + corpInfo.CeoName + #13;
+        tmp := tmp + 'BizType (업태) : ' + corpInfo.BizType + #13;
+        tmp := tmp + 'BizClass (종목) : ' + corpInfo.BizClass + #13;
+        tmp := tmp + 'Addr (주소) : ' + corpInfo.Addr + #13;
 
         ShowMessage(tmp);
-
-
 end;
 
 procedure TfrmExample.btnUpdateCorpInfoClick(Sender: TObject);
@@ -440,22 +504,31 @@ var
 begin
         corpInfo := TCorpInfo.Create;
 
-        corpInfo.ceoname := '대표자명';         //대표자명
-        corpInfo.corpName := '팝빌';    // 회사명
-        corpInfo.bizType := '업태';             // 업태
-        corpInfo.bizClass := '업종';            // 업종
-        corpInfo.addr := '서울특별시 강남구 영동대로 517';  // 주소
+        // 대표자명, 최대 30자
+        corpInfo.ceoname := '대표자명';
+
+        // 상호, 최대 70자
+        corpInfo.corpName := '상호';
+
+        // 업태, 최대 40자
+        corpInfo.bizType := '업태';
+
+        // 종목, 최대 40자
+        corpInfo.bizClass := '종목';
+
+        // 주소, 최대 300자
+        corpInfo.addr := '서울특별시 강남구 영동대로 517';
 
         try
-                response := closedownService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
+                response := closedownService.UpdateCorpInfo(txtCorpNum.text, corpInfo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
 procedure TfrmExample.btnGetChargeInfoClick(Sender: TObject);
@@ -468,7 +541,7 @@ begin
                 chargeInfo := closedownService.GetChargeInfo(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
