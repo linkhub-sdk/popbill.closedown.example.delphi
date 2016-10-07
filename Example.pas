@@ -1,3 +1,18 @@
+{******************************************************************************}
+{ 팝빌 휴폐업조회 API Delphi SDK Example                                       }
+{                                                                              }
+{ - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/1059                  }
+{ - 업데이트 일자 : 2016-10-06                                                 }
+{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991 (정요한 대리)             }
+{ - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
+{                                                                              }
+{ <테스트 연동개발 준비사항>                                                   }
+{ (1) 32, 35번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를          }
+{    링크허브 가입시 메일로 발급받은 인증정보로 수정                           }
+{ (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입                 }
+{                                                                              }
+{******************************************************************************}
+
 unit Example;
 
 interface
@@ -7,8 +22,15 @@ uses
   StdCtrls, Popbill, PopbillClosedown;
   
 const
+        {**********************************************************************}
+        { - 인증정보(링크아이디, 비밀키)는 파트너의 연동회원을 식별하는        }
+        {   인증에 사용되므로 유출되지 않도록 주의하시기 바랍니다              }
+        { - 상업용 전환이후에도 인증정보는 변경되지 않습니다.                  }
+        {**********************************************************************}
+
          //링크아이디.
         LinkID = 'TESTER';
+
         // 파트너 통신용 비밀키. 유출 주의.
         SecretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=';
 type
@@ -104,6 +126,10 @@ var
         corpState : TCorpState;
         tmp : string;
 begin
+        {**********************************************************************}
+        { 1건의 휴폐업조회 정보를 조회합니다.                                  }
+        {**********************************************************************}
+
         try
                 corpState := closedownService.checkCorpNum(txtCheckCorpNum.text, txtCorpNum.Text, txtUserID.text);
         except
@@ -113,9 +139,9 @@ begin
                 end;
         end;
 
-        tmp := 'corpNum : '+ corpState.corpNum + #13;
-        tmp := tmp + 'type : '+ corpState.ctype + #13;
-        tmp := tmp + 'state : '+ corpState.state + #13;
+        tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
+        tmp := tmp + 'type (사업유형) : '+ corpState.ctype + #13;
+        tmp := tmp + 'state (휴패업상태) : '+ corpState.state + #13;
         tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
         tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
@@ -136,6 +162,10 @@ var
         tmp : string;
         i : Integer;
 begin
+        {**********************************************************************}
+        { 다수건의 휴폐업조회 정보를 조회합니다.                                  }
+        {**********************************************************************}
+
         //조회할 사업자번호 목록, 최대 1000건
         SetLength(CorpNumList,3);
         CorpNumList[0] := '1234567890';
@@ -236,6 +266,11 @@ procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 해당 사업자의 연동회원 가입여부를 확인합니다.                        }
+        { - LinkID는 파트너를 식별하는 인증정보(32번라인)에 설정되어 있습니다. }
+        {**********************************************************************}
+        
         try
                 response := closedownService.CheckIsMember(txtCorpNum.text, LinkID);
         except
@@ -253,6 +288,12 @@ procedure TfrmExample.btnGetBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
+        {**********************************************************************}
+        { 연동회원의 잔여포인트를 확인합니다.                                  }
+        { - 과금방식이 연동과금이 아닌 파트너과금인 경우 파트너 잔여포인트     }
+        {   확인(GetPartnerBalance API) 기능 이용하시기 바랍니다               }
+        {**********************************************************************}
+        
         try
                 balance := closedownService.GetBalance(txtCorpNum.text);
         except
@@ -270,6 +311,10 @@ procedure TfrmExample.btnGetUnitCostClick(Sender: TObject);
 var
         unitcost : Single;
 begin
+        {**********************************************************************}
+        { 휴폐업 조회단가를 확인합니다.                                        }
+        {**********************************************************************}
+
         try
                 unitcost := closedownService.GetUnitCost(txtCorpNum.text);
         except
@@ -287,8 +332,10 @@ procedure TfrmExample.btnGetPopbillURL_loginClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+        {**********************************************************************}
+        {    팝빌(www.popbill.com)에 로그인된 팝업 URL을 반환합니다.           }
+        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
+        {**********************************************************************}
 
         try
                 resultURL := closedownService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
@@ -306,7 +353,10 @@ procedure TfrmExample.btnGetPopbillURL_chrgClick(Sender: TObject);
 var
   resultURL : String;
 begin
-        // 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+        {**********************************************************************}
+        { 연동회원 포인트 충전 URL을 반환합니다.                               }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
         
         try
                 resultURL := closedownService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
@@ -324,7 +374,13 @@ procedure TfrmExample.btnGetPartnerPointClick(Sender: TObject);
 var
         balance : Double;
 begin
-         try
+        {**********************************************************************}
+        { 파트너의 잔여포인트를 확인합니다. 과금방식이 파트너과금이 아닌       }
+        { 연동과금인 경우 연동회원 잔여포인트 확인(GetBalance API)를           }
+        { 이용하시기 바랍니다                                                  }
+        {**********************************************************************}
+        
+        try
                 balance := closedownService.GetPartnerBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
@@ -340,6 +396,10 @@ procedure TfrmExample.btnCheckIDClick(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 회원가입(JoinMember API)을 호출하기 전 아이디 중복을 확인합니다.     }
+        {**********************************************************************}
+        
         try
                 response := closedownService.CheckID(txtUserID.Text);
         except
@@ -358,6 +418,9 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자를 신규로 등록합니다.                               }
+        {**********************************************************************}
 
         // [필수] 아이디 (6자 이상 20자 미만)
         joinInfo.id := 'test_201509173';
@@ -405,7 +468,10 @@ var
         tmp : string;
         i : Integer;
 begin
-
+        {**********************************************************************}
+        { 연동회원의 담당자 목록을 확인합니다.                                 }
+        {**********************************************************************}
+        
         try
                 InfoList := closedownService.ListContact(txtCorpNum.text, txtUserID.text);
         except
@@ -439,6 +505,10 @@ var
         contactInfo : TContactInfo;
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자 정보를 수정합니다.                                 }
+        {**********************************************************************}
+        
         contactInfo := TContactInfo.Create;
 
         // 담당자명
@@ -479,6 +549,10 @@ var
         corpInfo : TCorpInfo;
         tmp : string;
 begin
+        {**********************************************************************}
+        { 연동회원의 회사정보를 확인합니다.                                    }
+        {**********************************************************************}
+        
         try
                 corpInfo := closedownService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
         except
@@ -502,6 +576,10 @@ var
         corpInfo : TCorpInfo;
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 연동회원의 회사정보를 수정합니다.                                    }
+        {**********************************************************************}
+
         corpInfo := TCorpInfo.Create;
 
         // 대표자명, 최대 30자
@@ -536,6 +614,9 @@ var
         chargeInfo : TClosedownChargeInfo;
         tmp : String;
 begin
+        {**********************************************************************}
+        { 연동회원의 휴폐업조회 API 서비스 과금정보를 확인합니다.              }
+        {**********************************************************************}
 
         try
                 chargeInfo := closedownService.GetChargeInfo(txtCorpNum.text);
