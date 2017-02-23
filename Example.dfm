@@ -218,7 +218,7 @@ object frmExample: TfrmExample
       Height = 21
       ImeName = 'Microsoft IME 2010'
       TabOrder = 0
-      Text = '4108600477'
+      Text = '6798700433'
     end
     object btnCheckCorpNum: TButton
       Left = 262

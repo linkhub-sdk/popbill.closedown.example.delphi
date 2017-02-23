@@ -2,8 +2,8 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example                                       }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/1059                  }
-{ - 업데이트 일자 : 2016-10-06                                                 }
-{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991 (정요한 대리)             }
+{ - 업데이트 일자 : 2017-02-23                                                 }
+{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
 { <테스트 연동개발 준비사항>                                                   }
@@ -131,7 +131,7 @@ begin
         {**********************************************************************}
 
         try
-                corpState := closedownService.checkCorpNum(txtCheckCorpNum.text, txtCorpNum.Text, txtUserID.text);
+                corpState := closedownService.checkCorpNum(txtCheckCorpNum.text, txtCorpNum.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -170,10 +170,10 @@ begin
         SetLength(CorpNumList,3);
         CorpNumList[0] := '1234567890';
         CorpNumList[1] := '4352343543';
-        CorpNumList[2] := '4108600477';
+        CorpNumList[2] := '6798700433';
 
         try
-                StateList := closedownService.checkCorpNums(CorpNumList, txtCorpNum.Text, txtUserID.text);
+                StateList := closedownService.checkCorpNums(CorpNumList, txtCorpNum.Text);
 
         except
                 on le : EPopbillException do begin
@@ -338,7 +338,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
+                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, 'LOGIN');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -359,7 +359,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
+                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -451,7 +451,7 @@ begin
 
 
         try
-                response := closedownService.RegistContact(txtCorpNum.text, joinInfo, txtUserID.text);
+                response := closedownService.RegistContact(txtCorpNum.text, joinInfo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -473,7 +473,7 @@ begin
         {**********************************************************************}
         
         try
-                InfoList := closedownService.ListContact(txtCorpNum.text, txtUserID.text);
+                InfoList := closedownService.ListContact(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -532,7 +532,7 @@ begin
         // 관리자권한 설정여부
         contactInfo.mgrYN := false;
         try
-                response := closedownService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.Text);
+                response := closedownService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -554,7 +554,7 @@ begin
         {**********************************************************************}
         
         try
-                corpInfo := closedownService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
+                corpInfo := closedownService.GetCorpInfo(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -598,7 +598,7 @@ begin
         corpInfo.addr := '서울특별시 강남구 영동대로 517';
 
         try
-                response := closedownService.UpdateCorpInfo(txtCorpNum.text, corpInfo, txtUserID.Text);
+                response := closedownService.UpdateCorpInfo(txtCorpNum.text, corpInfo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
