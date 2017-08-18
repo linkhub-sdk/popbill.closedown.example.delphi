@@ -2,8 +2,8 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example                                       }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2017-05-23                                                 }
-{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991                           }
+{ - 업데이트 일자 : 2017-08-18                                                 }
+{ - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
 { <테스트 연동개발 준비사항>                                                   }
@@ -143,6 +143,7 @@ begin
         tmp := tmp + 'type (사업유형) : '+ corpState.ctype + #13;
         tmp := tmp + 'state (휴패업상태) : '+ corpState.state + #13;
         tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
+        tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
         tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
         tmp := tmp + '* type (사업 유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
@@ -191,6 +192,7 @@ begin
                 tmp := tmp +'type : '+ StateList[i].ctype + #13;
                 tmp := tmp +'state : '+ StateList[i].state + #13;
                 tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
+                tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;                
                 tmp := tmp +'checkDate(국세청 확인일자) : '+ StateList[i].checkDate + #13#13;
         end;
 
