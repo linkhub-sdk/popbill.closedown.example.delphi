@@ -164,13 +164,13 @@ var
         i : Integer;
 begin
         {**********************************************************************}
-        { 다수건의 휴폐업조회 정보를 조회합니다.                                  }
+        { 다수건의 휴폐업조회 정보를 조회합니다.                               }
         {**********************************************************************}
 
         //조회할 사업자번호 목록, 최대 1000건
         SetLength(CorpNumList,3);
         CorpNumList[0] := '1234567890';
-        CorpNumList[1] := '4352343543';
+        CorpNumList[1] := '1234512345';
         CorpNumList[2] := '6798700433';
 
         try
@@ -188,9 +188,9 @@ begin
         
         for i := 0 to Length(StateList) -1 do
         begin
-                tmp := tmp +'corpNum : '+ StateList[i].corpNum + #13;
-                tmp := tmp +'type : '+ StateList[i].ctype + #13;
-                tmp := tmp +'state : '+ StateList[i].state + #13;
+                tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
+                tmp := tmp +'type(사업유형) : '+ StateList[i].ctype + #13;
+                tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
                 tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
                 tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;                
                 tmp := tmp +'checkDate(국세청 확인일자) : '+ StateList[i].checkDate + #13#13;
