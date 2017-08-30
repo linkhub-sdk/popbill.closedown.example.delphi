@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 505
-  Top = 259
-  Width = 838
-  Height = 354
+  Left = 258
+  Top = 186
+  Width = 1131
+  Height = 355
   Caption = '팝빌 휴폐업조회 API SDK for Delphi'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -34,18 +34,70 @@ object frmExample: TfrmExample
   object GroupBox7: TGroupBox
     Left = 16
     Top = 48
-    Width = 782
-    Height = 174
+    Width = 1089
+    Height = 153
     Caption = '팝빌 기본 API'
-    TabOrder = 14
+    TabOrder = 12
+    object GroupBox8: TGroupBox
+      Left = 768
+      Top = 16
+      Width = 144
+      Height = 122
+      Caption = '연동과금 포인트'
+      TabOrder = 0
+      object btnGetBalance: TButton
+        Left = 9
+        Top = 19
+        Width = 122
+        Height = 25
+        Caption = '잔여포인트 조회'
+        TabOrder = 0
+        OnClick = btnGetBalanceClick
+      end
+      object btnGetPopbillURL_chrg: TButton
+        Left = 9
+        Top = 50
+        Width = 122
+        Height = 25
+        Caption = '포인트 충전 URL'
+        TabOrder = 1
+        OnClick = btnGetPopbillURL_chrgClick
+      end
+    end
+    object GroupBox9: TGroupBox
+      Left = 920
+      Top = 16
+      Width = 147
+      Height = 122
+      Caption = '파트너과금 포인트'
+      TabOrder = 1
+      object btnGetPartnerPoint: TButton
+        Left = 8
+        Top = 18
+        Width = 127
+        Height = 25
+        Caption = '파트너포인트 조회'
+        TabOrder = 0
+        OnClick = btnGetPartnerPointClick
+      end
+      object btnGetPartnerURL_CHRG: TButton
+        Left = 8
+        Top = 48
+        Width = 128
+        Height = 25
+        Caption = '포인트 충전 URL'
+        TabOrder = 1
+        OnClick = btnGetPartnerURL_CHRGClick
+      end
+    end
   end
   object GroupBox4: TGroupBox
     Left = 480
     Top = 65
     Width = 144
-    Height = 144
+    Height = 118
     Caption = '담당자 관련'
-    TabOrder = 11
+    TabOrder = 9
     object btnRegistContact: TButton
       Left = 8
       Top = 16
@@ -75,36 +127,27 @@ object frmExample: TfrmExample
     end
   end
   object GroupBox3: TGroupBox
-    Left = 324
+    Left = 332
     Top = 66
     Width = 141
-    Height = 144
+    Height = 118
     Caption = '팝빌 기본 URL'
-    TabOrder = 10
+    TabOrder = 8
   end
   object GroupBox2: TGroupBox
     Left = 165
     Top = 66
     Width = 148
-    Height = 145
+    Height = 119
     Caption = '포인트 관련'
-    TabOrder = 7
-    object btnGetPartnerPoint: TButton
-      Left = 8
-      Top = 82
-      Width = 124
-      Height = 25
-      Caption = '파트너포인트 조회'
-      TabOrder = 0
-      OnClick = btnGetPartnerPointClick
-    end
+    TabOrder = 6
     object btnGetChargeInfo: TButton
       Left = 8
       Top = 16
-      Width = 124
+      Width = 128
       Height = 25
       Caption = '과금정보 확인'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnGetChargeInfoClick
     end
   end
@@ -112,9 +155,9 @@ object frmExample: TfrmExample
     Left = 29
     Top = 67
     Width = 127
-    Height = 144
+    Height = 118
     Caption = '회원 정보'
-    TabOrder = 6
+    TabOrder = 5
     object btnCheckID: TButton
       Left = 8
       Top = 49
@@ -126,22 +169,13 @@ object frmExample: TfrmExample
     end
   end
   object btnGetUnitCost: TButton
-    Left = 175
-    Top = 179
-    Width = 125
+    Left = 173
+    Top = 115
+    Width = 128
     Height = 25
     Caption = '조회 단가 확인'
     TabOrder = 0
     OnClick = btnGetUnitCostClick
-  end
-  object btnGetBalance: TButton
-    Left = 175
-    Top = 115
-    Width = 122
-    Height = 25
-    Caption = '잔여포인트 조회'
-    TabOrder = 1
-    OnClick = btnGetBalanceClick
   end
   object txtCorpNum: TEdit
     Left = 161
@@ -149,7 +183,7 @@ object frmExample: TfrmExample
     Width = 123
     Height = 21
     ImeName = 'Microsoft IME 2010'
-    TabOrder = 2
+    TabOrder = 1
     Text = '1234567890'
   end
   object txtUserID: TEdit
@@ -158,16 +192,16 @@ object frmExample: TfrmExample
     Width = 123
     Height = 21
     ImeName = 'Microsoft IME 2010'
-    TabOrder = 3
+    TabOrder = 2
     Text = 'testkorea'
   end
   object btnJoinMember: TButton
     Left = 37
-    Top = 149
+    Top = 147
     Width = 108
     Height = 25
     Caption = '회원 가입'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btnJoinMemberClick
   end
   object btnCheckIsMember: TButton
@@ -176,34 +210,25 @@ object frmExample: TfrmExample
     Width = 108
     Height = 25
     Caption = '가입여부 확인'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btnCheckIsMemberClick
   end
   object btnGetPopbillURL_login: TButton
-    Left = 333
+    Left = 341
     Top = 82
     Width = 117
     Height = 25
     Caption = '팝빌 로그인 URL'
-    TabOrder = 8
+    TabOrder = 7
     OnClick = btnGetPopbillURL_loginClick
-  end
-  object btnGetPopbillURL_chrg: TButton
-    Left = 333
-    Top = 114
-    Width = 117
-    Height = 25
-    Caption = '포인트 충전 URL'
-    TabOrder = 9
-    OnClick = btnGetPopbillURL_chrgClick
   end
   object GroupBox5: TGroupBox
     Left = 16
-    Top = 232
+    Top = 224
     Width = 569
     Height = 58
     Caption = '휴폐업조회 관련 API'
-    TabOrder = 12
+    TabOrder = 10
     object Label3: TLabel
       Left = 24
       Top = 24
@@ -240,12 +265,12 @@ object frmExample: TfrmExample
     end
   end
   object GroupBox6: TGroupBox
-    Left = 640
+    Left = 632
     Top = 65
     Width = 144
-    Height = 143
+    Height = 119
     Caption = '회사정보 관련'
-    TabOrder = 13
+    TabOrder = 11
     object btnGetCorpInfo: TButton
       Left = 12
       Top = 16
