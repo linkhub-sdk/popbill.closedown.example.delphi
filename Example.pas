@@ -487,7 +487,7 @@ begin
                 end;
         end;
 
-        tmp := 'id | email | hp | personName | searchAllAlloyYN | tel | fax | mgrYN | regDT' + #13;
+        tmp := 'id | email | hp | personName | searchAllAlloyYN | tel | fax | mgrYN | regDT | state' + #13;
         
         for i := 0 to Length(InfoList) -1 do
         begin
