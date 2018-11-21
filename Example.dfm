@@ -54,14 +54,14 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetBalanceClick
       end
-      object btnGetPopbillURL_chrg: TButton
+      object btnGetChargeURL: TButton
         Left = 9
         Top = 50
         Width = 122
         Height = 25
         Caption = '포인트 충전 URL'
         TabOrder = 1
-        OnClick = btnGetPopbillURL_chrgClick
+        OnClick = btnGetChargeURLClick
       end
     end
     object GroupBox9: TGroupBox
@@ -213,14 +213,14 @@ object frmExample: TfrmExample
     TabOrder = 4
     OnClick = btnCheckIsMemberClick
   end
-  object btnGetPopbillURL_login: TButton
+  object btnGetAccessURL: TButton
     Left = 341
     Top = 82
     Width = 117
     Height = 25
     Caption = '팝빌 로그인 URL'
     TabOrder = 7
-    OnClick = btnGetPopbillURL_loginClick
+    OnClick = btnGetAccessURLClick
   end
   object GroupBox5: TGroupBox
     Left = 16

@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example                                       }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2017-08-30                                                 }
+{ - 업데이트 일자 : 2018-11-21                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -44,7 +44,7 @@ type
     btnCheckIsMember: TButton;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
-    btnGetPopbillURL_login: TButton;
+    btnGetAccessURL: TButton;
     GroupBox3: TGroupBox;
     GroupBox4: TGroupBox;
     GroupBox5: TGroupBox;
@@ -64,7 +64,7 @@ type
     GroupBox8: TGroupBox;
     GroupBox9: TGroupBox;
     btnGetBalance: TButton;
-    btnGetPopbillURL_chrg: TButton;
+    btnGetChargeURL: TButton;
     btnGetPartnerPoint: TButton;
     btnGetPartnerURL_CHRG: TButton;
     procedure FormCreate(Sender: TObject);
@@ -75,8 +75,8 @@ type
     procedure btnCheckIsMemberClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
     procedure btnGetUnitCostClick(Sender: TObject);
-    procedure btnGetPopbillURL_loginClick(Sender: TObject);
-    procedure btnGetPopbillURL_chrgClick(Sender: TObject);
+    procedure btnGetAccessURLClick(Sender: TObject);
+    procedure btnGetChargeURLClick(Sender: TObject);
     procedure btnGetPartnerPointClick(Sender: TObject);
     procedure btnCheckIDClick(Sender: TObject);
     procedure btnRegistContactClick(Sender: TObject);
@@ -334,7 +334,7 @@ begin
 
 end;
 
-procedure TfrmExample.btnGetPopbillURL_loginClick(Sender: TObject);
+procedure TfrmExample.btnGetAccessURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -344,7 +344,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, 'LOGIN');
+                resultURL := closedownService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -355,7 +355,7 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnGetPopbillURL_chrgClick(Sender: TObject);
+procedure TfrmExample.btnGetChargeURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -365,7 +365,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := closedownService.getPopbillURL(txtCorpNum.Text, 'CHRG');
+                resultURL := closedownService.getChargeURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
