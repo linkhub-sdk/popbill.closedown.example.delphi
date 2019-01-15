@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example                                       }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-11-21                                                 }
+{ - 업데이트 일자 : 2019-01-15                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -144,13 +144,13 @@ begin
         end;
 
         tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
-        tmp := tmp + 'type (사업유형) : '+ corpState.ctype + #13;
+        tmp := tmp + 'type (사업자 과세유형) : '+ corpState.ctype + #13;
         tmp := tmp + 'state (휴패업상태) : '+ corpState.state + #13;
         tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
         tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
         tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
-        tmp := tmp + '* type (사업 유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
+        tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
         tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
 
         corpState.Free;
@@ -187,13 +187,13 @@ begin
                 end;
         end;
 
-        tmp := '* type (사업 유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
+        tmp := '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
         tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
         
         for i := 0 to Length(StateList) -1 do
         begin
                 tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
-                tmp := tmp +'type(사업유형) : '+ StateList[i].ctype + #13;
+                tmp := tmp +'type(사업자 과세유형) : '+ StateList[i].ctype + #13;
                 tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
                 tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
                 tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;                
@@ -219,28 +219,28 @@ begin
         // 사업자번호 '-' 제외, 10자리
         joinInfo.CorpNum := '4364364364';
 
-        // 대표자성명, 최대 30자
+        // 대표자성명, 최대 100자
         joinInfo.CEOName := '대표자성명';
 
-        // 상호명, 최대 70자
+        // 상호명, 최대 200자
         joinInfo.CorpName := '링크허브';
 
         // 주소, 최대 300자
         joinInfo.Addr := '주소';
 
-        // 업태, 최대 40자
+        // 업태, 최대 100자
         joinInfo.BizType := '업태';
 
-        // 종목, 최대 40자
+        // 종목, 최대 100자
         joinInfo.BizClass := '종목';
 
-        // 아이디, 6자이상 20자 미만
+        // 아이디, 6자이상 50자 미만
         joinInfo.ID     := 'userid';
 
         // 비밀번호, 6자이상 20자 미만
         joinInfo.PWD    := 'pwd_must_be_long_enough';
 
-        // 담당자명, 최대 30자
+        // 담당자명, 최대 100자
         joinInfo.ContactName := '담당자명';
 
         // 담당자 연락처, 최대 20자
@@ -252,7 +252,7 @@ begin
         // 담당자 팩스번호, 최대 20자
         joinInfo.ContactFAX := '02-6442-9700';
 
-        // 담당자 메일, 최대 70자
+        // 담당자 메일, 최대 100자
         joinInfo.ContactEmail := 'code@linkhub.co.kr';
 
         try
@@ -428,33 +428,32 @@ begin
         { 연동회원의 담당자를 신규로 등록합니다.                               }
         {**********************************************************************}
 
-        // [필수] 아이디 (6자 이상 20자 미만)
-        joinInfo.id := 'test_201509173';
-        
+        // [필수] 담당자 아이디 (6자 이상 50자 미만)
+        joinInfo.id := 'testkorea0222_01';
+
         // [필수] 비밀번호 (6자 이상 20자 미만)
         joinInfo.pwd := 'thisispassword';
 
-        // [필수] 담당자명(한글이나 영문 30자 이내)
+        // [필수] 담당자명(한글이나 영문 100자 이내)
         joinInfo.personName := '담당자성명';
 
-        // [필수] 연락처
+        // [필수] 연락처 (최대 20자)
         joinInfo.tel := '070-4304-2991';
 
-        // 휴대폰번호
+        // 휴대폰번호 (최대 20자)
         joinInfo.hp := '010-1111-2222';
 
-        // 팩스번호
+        // 팩스번호 (최대 20자)
         joinInfo.fax := '02-6442-9700';
 
-        // [필수] 이메일
+        // [필수] 이메일 (최대 100자)
         joinInfo.email := 'test@test.com';
 
-        // 조회권한(true 회사조회/ false 개인조회)
+        // 회사조회 권한여부, true-회사조회 / false-개인조회
         joinInfo.searchAllAllowYN := false;
 
-        // 관리자 권한여부
+        // 관리자 권한여부, true-관리자 / false-사용자
         joinInfo.mgrYN := false;
-
 
         try
                 response := closedownService.RegistContact(txtCorpNum.text, joinInfo);
@@ -487,7 +486,8 @@ begin
                 end;
         end;
 
-        tmp := 'id | email | hp | personName | searchAllAlloyYN | tel | fax | mgrYN | regDT | state' + #13;
+        tmp := 'id(아이디) | email(이메일) | hp(휴대폰) | personName(성명) | searchAllAllowYN(회사조회 권한) | ';
+        tmp := tmp + 'tel(연락처) | fax(팩스) | mgrYN(관리자 여부) | regDT(등록일시) | state(상태)' + #13;
         
         for i := 0 to Length(InfoList) -1 do
         begin
@@ -512,35 +512,37 @@ var
         contactInfo : TContactInfo;
         response : TResponse;
 begin
+
         {**********************************************************************}
         { 연동회원의 담당자 정보를 수정합니다.                                 }
         {**********************************************************************}
-        
+
         contactInfo := TContactInfo.Create;
 
         // 담당자 아이디
         contactInfo.id := 'testkorea';
 
-        // 담당자명
+        // 담당자명 (최대 100자)
         contactInfo.personName := '테스트 담당자';
 
-        // 연락처
+        // 연락처 (최대 20자)
         contactInfo.tel := '070-4304-2991';
 
-        // 휴대폰번호
-        contactInfo.hp := '010-000-111';
+        // 휴대폰번호 (최대 20자)
+        contactInfo.hp := '010-4324-1111';
 
-        // 이메일 주소
+        // 이메일 주소 (최대 100자)
         contactInfo.email := 'test@test.com';
-        
-        // 팩스번호
+
+        // 팩스번호 (최대 20자)
         contactInfo.fax := '02-6442-9799';
 
         // 조회권한, true(회사조회), false(개인조회)
         contactInfo.searchAllAllowYN := true;
 
-        // 관리자권한 설정여부
+        // 관리자권한 설정여부, true-관리자 / false-사용자
         contactInfo.mgrYN := false;
+
         try
                 response := closedownService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.text);
         except
@@ -562,7 +564,7 @@ begin
         {**********************************************************************}
         { 연동회원의 회사정보를 확인합니다.                                    }
         {**********************************************************************}
-        
+
         try
                 corpInfo := closedownService.GetCorpInfo(txtCorpNum.text);
         except
@@ -592,16 +594,16 @@ begin
 
         corpInfo := TCorpInfo.Create;
 
-        // 대표자명, 최대 30자
+        // 대표자명, 최대 100자
         corpInfo.ceoname := '대표자명';
 
-        // 상호, 최대 70자
+        // 상호, 최대 200자
         corpInfo.corpName := '상호';
 
-        // 업태, 최대 40자
+        // 업태, 최대 100자
         corpInfo.bizType := '업태';
 
-        // 종목, 최대 40자
+        // 종목, 최대 100자
         corpInfo.bizClass := '종목';
 
         // 주소, 최대 300자
