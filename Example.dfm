@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 22
-  Top = 138
+  Left = 4
+  Top = 120
   Width = 1131
   Height = 355
   Caption = '팝빌 휴폐업조회 API SDK for Delphi'
@@ -161,9 +161,9 @@ object frmExample: TfrmExample
     object btnCheckID: TButton
       Left = 8
       Top = 49
-      Width = 108
+      Width = 113
       Height = 25
-      Caption = 'ID 중복 확인'
+      Caption = '아이디 중복 확인'
       TabOrder = 0
       OnClick = btnCheckIDClick
     end
@@ -198,7 +198,7 @@ object frmExample: TfrmExample
   object btnJoinMember: TButton
     Left = 37
     Top = 147
-    Width = 108
+    Width = 113
     Height = 25
     Caption = '회원 가입'
     TabOrder = 3
@@ -207,7 +207,7 @@ object frmExample: TfrmExample
   object btnCheckIsMember: TButton
     Left = 37
     Top = 84
-    Width = 108
+    Width = 113
     Height = 25
     Caption = '가입여부 확인'
     TabOrder = 4

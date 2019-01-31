@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example                                       }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2019-01-15                                                 }
+{ - 업데이트 일자 : 2019-01-31                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -20,7 +20,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Popbill, PopbillClosedown;
-  
+
 const
         {**********************************************************************}
         { - 인증정보(링크아이디, 비밀키)는 파트너의 연동회원을 식별하는        }
@@ -154,11 +154,8 @@ begin
         tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
 
         corpState.Free;
-        
         ShowMessage(tmp);
-
 end;
-
 
 procedure TfrmExample.btnCheckCorpNumsClick(Sender: TObject);
 var
@@ -168,7 +165,7 @@ var
         i : Integer;
 begin
         {**********************************************************************}
-        { 다수건의 휴폐업조회 정보를 조회합니다.                               }
+        { 다수건의 휴폐업조회 정보를 조회합니다.(최대 1000건)                  }
         {**********************************************************************}
 
         //조회할 사업자번호 목록, 최대 1000건
@@ -189,17 +186,16 @@ begin
 
         tmp := '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
         tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
-        
+
         for i := 0 to Length(StateList) -1 do
         begin
                 tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
                 tmp := tmp +'type(사업자 과세유형) : '+ StateList[i].ctype + #13;
                 tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
                 tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
-                tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;                
+                tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;
                 tmp := tmp +'checkDate(국세청 확인일자) : '+ StateList[i].checkDate + #13#13;
         end;
-
         ShowMessage(tmp);
 end;
 
@@ -217,7 +213,7 @@ begin
         joinInfo.LinkID := LinkID;
 
         // 사업자번호 '-' 제외, 10자리
-        joinInfo.CorpNum := '4364364364';
+        joinInfo.CorpNum := '1234567890';
 
         // 대표자성명, 최대 100자
         joinInfo.CEOName := '대표자성명';
@@ -263,9 +259,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
-
 end;
 
 procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
@@ -273,10 +267,10 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 해당 사업자의 연동회원 가입여부를 확인합니다.                        }
+        { 파트너의 연동회원으로 가입된 사업자번호인지 확인합니다.              }
         { - LinkID는 파트너를 식별하는 인증정보(32번라인)에 설정되어 있습니다. }
         {**********************************************************************}
-        
+
         try
                 response := closedownService.CheckIsMember(txtCorpNum.text, LinkID);
         except
@@ -285,9 +279,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
-
 end;
 
 procedure TfrmExample.btnGetBalanceClick(Sender: TObject);
@@ -308,9 +300,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('잔여포인트 : ' + FloatToStr(balance));
-
 end;
 
 procedure TfrmExample.btnGetUnitCostClick(Sender: TObject);
@@ -329,9 +319,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('조회단가 : '+ FloatToStr(unitcost));
-
 end;
 
 procedure TfrmExample.btnGetAccessURLClick(Sender: TObject);
@@ -351,7 +339,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -372,7 +359,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -394,7 +380,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('잔여포인트 : ' + FloatToStr(balance));
 end;
 
@@ -414,9 +399,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
-
 end;
 
 procedure TfrmExample.btnRegistContactClick(Sender: TObject);
@@ -429,7 +412,7 @@ begin
         {**********************************************************************}
 
         // [필수] 담당자 아이디 (6자 이상 50자 미만)
-        joinInfo.id := 'testkorea0222_01';
+        joinInfo.id := 'testkorea';
 
         // [필수] 비밀번호 (6자 이상 20자 미만)
         joinInfo.pwd := 'thisispassword';
@@ -463,7 +446,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
@@ -476,7 +458,7 @@ begin
         {**********************************************************************}
         { 연동회원의 담당자 목록을 확인합니다.                                 }
         {**********************************************************************}
-        
+
         try
                 InfoList := closedownService.ListContact(txtCorpNum.text);
         except
@@ -488,7 +470,7 @@ begin
 
         tmp := 'id(아이디) | email(이메일) | hp(휴대폰) | personName(성명) | searchAllAllowYN(회사조회 권한) | ';
         tmp := tmp + 'tel(연락처) | fax(팩스) | mgrYN(관리자 여부) | regDT(등록일시) | state(상태)' + #13;
-        
+
         for i := 0 to Length(InfoList) -1 do
         begin
             tmp := tmp + InfoList[i].id + ' | ';
@@ -502,9 +484,7 @@ begin
             tmp := tmp + InfoList[i].regDT + ' | ';
             tmp := tmp + IntToStr(InfoList[i].state) + #13;
         end;
-
         ShowMessage(tmp);
-
 end;
 
 procedure TfrmExample.btnUpdateContactClick(Sender: TObject);
@@ -551,9 +531,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
-
 end;
 
 procedure TfrmExample.btnGetCorpInfoClick(Sender: TObject);
@@ -579,7 +557,6 @@ begin
         tmp := tmp + 'BizType (업태) : ' + corpInfo.BizType + #13;
         tmp := tmp + 'BizClass (종목) : ' + corpInfo.BizClass + #13;
         tmp := tmp + 'Addr (주소) : ' + corpInfo.Addr + #13;
-
         ShowMessage(tmp);
 end;
 
@@ -617,7 +594,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
@@ -642,7 +618,6 @@ begin
         tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
         tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
         tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
-
         ShowMessage(tmp);
 end;
 
@@ -663,7 +638,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
