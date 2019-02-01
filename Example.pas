@@ -145,7 +145,7 @@ begin
 
         tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
         tmp := tmp + 'type (사업자 과세유형) : '+ corpState.ctype + #13;
-        tmp := tmp + 'state (휴패업상태) : '+ corpState.state + #13;
+        tmp := tmp + 'state (휴폐업상태) : '+ corpState.state + #13;
         tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
         tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
         tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
