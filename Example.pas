@@ -145,9 +145,9 @@ begin
 
         tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
         tmp := tmp + 'type (사업자 과세유형) : '+ corpState.ctype + #13;
+        tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
         tmp := tmp + 'state (휴폐업상태) : '+ corpState.state + #13;
         tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
-        tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
         tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
         tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
@@ -191,9 +191,9 @@ begin
         begin
                 tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
                 tmp := tmp +'type(사업자 과세유형) : '+ StateList[i].ctype + #13;
+                tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;
                 tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
                 tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
-                tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;
                 tmp := tmp +'checkDate(국세청 확인일자) : '+ StateList[i].checkDate + #13#13;
         end;
         ShowMessage(tmp);
@@ -339,7 +339,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetChargeURLClick(Sender: TObject);
@@ -359,7 +359,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetPartnerPointClick(Sender: TObject);
@@ -638,7 +638,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 end.
