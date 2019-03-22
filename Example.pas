@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example                                       }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2019-01-31                                                 }
+{ - 업데이트 일자 : 2019-03-22                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -109,7 +109,7 @@ begin
         closedownService.IsTest := true;
 
         //Exception 처리 설정값, true(기본값)
-        closedownService.IsThrowException := true;
+        closedownService.IsThrowException := false;
 end;
 
 function BoolToStr(b:Boolean):String;
@@ -143,18 +143,25 @@ begin
                 end;
         end;
 
-        tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
-        tmp := tmp + 'type (사업자 과세유형) : '+ corpState.ctype + #13;
-        tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
-        tmp := tmp + 'state (휴폐업상태) : '+ corpState.state + #13;
-        tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
-        tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
+        if closedownService.LastErrCode <> 0 then
+        begin
+                ShowMessage(IntToStr(closedownService.LastErrCode) + ' | ' +  closedownService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
+                tmp := tmp + 'type (사업자 과세유형) : '+ corpState.ctype + #13;
+                tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
+                tmp := tmp + 'state (휴폐업상태) : '+ corpState.state + #13;
+                tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
+                tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
-        tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
-        tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
+                tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
+                tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
 
-        corpState.Free;
-        ShowMessage(tmp);
+                corpState.Free;
+                ShowMessage(tmp);
+        end;
 end;
 
 procedure TfrmExample.btnCheckCorpNumsClick(Sender: TObject);
@@ -184,19 +191,27 @@ begin
                 end;
         end;
 
-        tmp := '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
-        tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
-
-        for i := 0 to Length(StateList) -1 do
+        if closedownService.LastErrCode <> 0 then
         begin
-                tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
-                tmp := tmp +'type(사업자 과세유형) : '+ StateList[i].ctype + #13;
-                tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;
-                tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
-                tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
-                tmp := tmp +'checkDate(국세청 확인일자) : '+ StateList[i].checkDate + #13#13;
+                ShowMessage(IntToStr(closedownService.LastErrCode) + ' | ' +  closedownService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
+                tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
+
+                for i := 0 to Length(StateList) -1 do
+                begin
+                        tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
+                        tmp := tmp +'type(사업자 과세유형) : '+ StateList[i].ctype + #13;
+                        tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;
+                        tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
+                        tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
+                        tmp := tmp +'checkDate(국세청 확인일자) : '+ StateList[i].checkDate + #13#13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
+
 end;
 
 procedure TfrmExample.btnJoinMemberClick(Sender: TObject);
@@ -319,7 +334,16 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('조회단가 : '+ FloatToStr(unitcost));
+
+        if closedownService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(closedownService.LastErrCode) + #10#13 +'응답메시지 : '+ closedownService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('조회단가 : '+ FloatToStr(unitcost));
+        end;
+
 end;
 
 procedure TfrmExample.btnGetAccessURLClick(Sender: TObject);
@@ -615,10 +639,19 @@ begin
                 end;
         end;
 
-        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
-        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
-        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
-        ShowMessage(tmp);
+        if closedownService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(closedownService.LastErrCode) + #10#13 +'응답메시지 : '+ closedownService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+                tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+                tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+                ShowMessage(tmp);
+        end;
+
+
 end;
 
 procedure TfrmExample.btnGetPartnerURL_CHRGClick(Sender: TObject);
@@ -640,5 +673,4 @@ begin
         end;
         ShowMessage('URL : ' + #13 + resultURL);
 end;
-
 end.
