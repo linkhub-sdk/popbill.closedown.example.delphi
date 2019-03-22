@@ -109,7 +109,7 @@ begin
         closedownService.IsTest := true;
 
         //Exception 처리 설정값, true(기본값)
-        closedownService.IsThrowException := false;
+        closedownService.IsThrowException := true;
 end;
 
 function BoolToStr(b:Boolean):String;
