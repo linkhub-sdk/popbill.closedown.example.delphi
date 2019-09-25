@@ -110,6 +110,9 @@ begin
 
         //Exception 처리 설정값, true(기본값)
         closedownService.IsThrowException := true;
+
+        //인증토큰 IP제한기능 사용여부, true(권장)
+        closedownService.IPRestrictOnOff := true;
 end;
 
 function BoolToStr(b:Boolean):String;
