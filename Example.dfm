@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 99
-  Top = 189
+  Left = 704
+  Top = 508
   Width = 1131
   Height = 355
   Caption = '팝빌 휴폐업조회 API SDK for Delphi'
@@ -35,20 +35,20 @@ object frmExample: TfrmExample
     Left = 16
     Top = 48
     Width = 1089
-    Height = 153
+    Height = 169
     Caption = '팝빌 기본 API'
     TabOrder = 12
     object GroupBox8: TGroupBox
       Left = 768
       Top = 16
       Width = 144
-      Height = 122
+      Height = 145
       Caption = '연동과금 포인트'
       TabOrder = 0
       object btnGetBalance: TButton
         Left = 9
         Top = 19
-        Width = 122
+        Width = 129
         Height = 25
         Caption = '잔여포인트 조회'
         TabOrder = 0
@@ -57,11 +57,29 @@ object frmExample: TfrmExample
       object btnGetChargeURL: TButton
         Left = 9
         Top = 50
-        Width = 122
+        Width = 129
         Height = 25
         Caption = '포인트 충전 URL'
         TabOrder = 1
         OnClick = btnGetChargeURLClick
+      end
+      object btnGetPaymentURL: TButton
+        Left = 8
+        Top = 80
+        Width = 129
+        Height = 25
+        Caption = '포인트 결제내역 URL'
+        TabOrder = 2
+        OnClick = btnGetPaymentURLClick
+      end
+      object btnGetUseHistoryURL: TButton
+        Left = 8
+        Top = 112
+        Width = 129
+        Height = 25
+        Caption = '포인트 사용내역 URL'
+        TabOrder = 3
+        OnClick = btnGetUseHistoryURLClick
       end
     end
     object GroupBox9: TGroupBox
@@ -95,7 +113,7 @@ object frmExample: TfrmExample
     Left = 480
     Top = 65
     Width = 144
-    Height = 118
+    Height = 144
     Caption = '담당자 관련'
     TabOrder = 9
     object btnRegistContact: TButton
@@ -109,7 +127,7 @@ object frmExample: TfrmExample
     end
     object btnListContact: TButton
       Left = 7
-      Top = 48
+      Top = 80
       Width = 129
       Height = 25
       Caption = '담당자 목록 조회'
@@ -118,12 +136,21 @@ object frmExample: TfrmExample
     end
     object btnUpdateContact: TButton
       Left = 7
-      Top = 80
+      Top = 112
       Width = 129
       Height = 25
       Caption = '담당자 정보 수정'
       TabOrder = 2
       OnClick = btnUpdateContactClick
+    end
+    object btnGetContactInfo: TButton
+      Left = 8
+      Top = 48
+      Width = 129
+      Height = 25
+      Caption = '담당자 정보 확인'
+      TabOrder = 3
+      OnClick = btnGetContactInfoClick
     end
   end
   object GroupBox3: TGroupBox
