@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example
 {
 { - 델파이 SDK 적용방법 안내 : https://docs.popbill.com/closedown/tutorial/delphi
-{ - 업데이트 일자 : 2021-06-15
+{ - 업데이트 일자 : 2021-07-23
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991
 { - 연동 기술지원 이메일 : code@linkhub.co.kr
 {
@@ -163,13 +163,13 @@ begin
         else
         begin
                 tmp := 'corpNum (사업자번호) : '+ corpState.corpNum + #13;
-                tmp := tmp + 'type (사업자 과세유형) : '+ corpState.ctype + #13;
+                tmp := tmp + 'taxType (사업자 과세유형) : '+ corpState.taxType + #13;
                 tmp := tmp + 'typeDate(과세유형 전환일자) : '+ corpState.typeDate + #13;
                 tmp := tmp + 'state (휴폐업상태) : '+ corpState.state + #13;
                 tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
                 tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
-                tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
+                tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관' +#13;
                 tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
 
                 corpState.Free;
@@ -211,13 +211,13 @@ begin
         end
         else
         begin
-                tmp := '* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관' +#13;
+                tmp := '* type (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관' +#13;
                 tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
 
                 for i := 0 to Length(StateList) -1 do
                 begin
                         tmp := tmp +'corpNum(사업자번호) : '+ StateList[i].corpNum + #13;
-                        tmp := tmp +'type(사업자 과세유형) : '+ StateList[i].ctype + #13;
+                        tmp := tmp +'taxType(사업자 과세유형) : '+ StateList[i].taxType + #13;
                         tmp := tmp +'typeDate(과세유형 전환일자) : '+ StateList[i].typeDate + #13;
                         tmp := tmp +'state(휴폐업상태) : '+ StateList[i].state + #13;
                         tmp := tmp +'stateDate(휴폐업일자) : '+ StateList[i].stateDate + #13;
