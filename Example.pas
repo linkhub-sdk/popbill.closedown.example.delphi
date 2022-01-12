@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example
 {
 { - 델파이 SDK 적용방법 안내 : https://docs.popbill.com/closedown/tutorial/delphi
-{ - 업데이트 일자 : 2021-07-23
+{ - 업데이트 일자 : 2022-01-10
 { - 연동 기술지원 연락처 : 1600-9854
 { - 연동 기술지원 이메일 : code@linkhubcorp.com
 {
@@ -168,8 +168,8 @@ begin
                 tmp := tmp + 'stateDate(휴폐업일자) : '+ corpState.stateDate + #13;
                 tmp := tmp + 'checkDate(국세청 확인일자) : '+ corpState.checkDate + #13#13;
 
-                tmp := tmp + '* type (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관' +#13;
-                tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
+                tmp := tmp + '* taxType (사업자 과세유형) : null-미확인, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관' +#13;
+                tmp := tmp + '* state (휴폐업상태) : null-미확인, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업';
 
                 corpState.Free;
                 ShowMessage(tmp);
@@ -210,8 +210,8 @@ begin
         end
         else
         begin
-                tmp := '* type (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관' +#13;
-                tmp := tmp + '* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
+                tmp := '* taxType (사업자 과세유형) : null-미확인, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관' +#13;
+                tmp := tmp + '* state (휴폐업상태) : null-미확인, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업' +#13#13;
 
                 for i := 0 to Length(StateList) -1 do
                 begin
