@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example
 {
 { - 델파이 SDK 적용방법 안내 : https://docs.popbill.com/closedown/tutorial/delphi
-{ - 업데이트 일자 : 2022-01-10
+{ - 업데이트 일자 : 2022-04-07
 { - 연동 기술지원 연락처 : 1600-9854
 { - 연동 기술지원 이메일 : code@linkhubcorp.com
 {
