@@ -259,7 +259,7 @@ object frmExample: TfrmExample
     object Label3: TLabel
       Left = 24
       Top = 24
-      Width = 99
+      Width = 92
       Height = 13
       Caption = '조회 사업자번호 :  '
     end

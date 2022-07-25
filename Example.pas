@@ -2,7 +2,7 @@
 { 팝빌 휴폐업조회 API Delphi SDK Example
 {
 { - 델파이 SDK 적용방법 안내 : https://docs.popbill.com/closedown/tutorial/delphi
-{ - 업데이트 일자 : 2022-04-07
+{ - 업데이트 일자 : 2022-07-25
 { - 연동 기술지원 연락처 : 1600-9854
 { - 연동 기술지원 이메일 : code@linkhubcorp.com
 {
@@ -779,7 +779,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := closedownService.getPaymentURL(txtCorpNum.Text);
+                resultURL := closedownService.getPaymentURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -807,7 +807,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := closedownService.getUseHistoryURL(txtCorpNum.Text);
+                resultURL := closedownService.getUseHistoryURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
