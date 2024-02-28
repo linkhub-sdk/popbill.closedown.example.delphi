@@ -1,9 +1,9 @@
 object frmExample: TfrmExample
   Left = 704
   Top = 508
-  Width = 1131
-  Height = 355
-  Caption = '팝빌 휴폐업조회 API SDK for Delphi'
+  Caption = #54045#48716' '#55092#54224#50629#51312#54924' API SDK for Delphi'
+  ClientHeight = 316
+  ClientWidth = 1115
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object frmExample: TfrmExample
     Width = 132
     Height = 13
     AutoSize = False
-    Caption = '팝빌회원 사업자번호 :'
+    Caption = #54045#48716#54924#50896' '#49324#50629#51088#48264#54840' :'
   end
   object Label2: TLabel
     Left = 302
@@ -29,7 +29,7 @@ object frmExample: TfrmExample
     Width = 99
     Height = 13
     AutoSize = False
-    Caption = '팝빌회원 아이디 :'
+    Caption = #54045#48716#54924#50896' '#50500#51060#46356' :'
   end
   object Label4: TLabel
     Left = 734
@@ -44,21 +44,21 @@ object frmExample: TfrmExample
     Top = 48
     Width = 1089
     Height = 169
-    Caption = '팝빌 기본 API'
+    Caption = #54045#48716' '#44592#48376' API'
     TabOrder = 12
     object GroupBox8: TGroupBox
       Left = 768
       Top = 16
       Width = 144
       Height = 145
-      Caption = '연동과금 포인트'
+      Caption = #50672#46041#44284#44552' '#54252#51064#53944
       TabOrder = 0
       object btnGetBalance: TButton
         Left = 9
         Top = 19
         Width = 129
         Height = 25
-        Caption = '잔여포인트 조회'
+        Caption = #51092#50668#54252#51064#53944' '#51312#54924
         TabOrder = 0
         OnClick = btnGetBalanceClick
       end
@@ -67,7 +67,7 @@ object frmExample: TfrmExample
         Top = 50
         Width = 129
         Height = 25
-        Caption = '포인트 충전 URL'
+        Caption = #54252#51064#53944' '#52649#51204' URL'
         TabOrder = 1
         OnClick = btnGetChargeURLClick
       end
@@ -76,7 +76,7 @@ object frmExample: TfrmExample
         Top = 80
         Width = 129
         Height = 25
-        Caption = '포인트 결제내역 URL'
+        Caption = #54252#51064#53944' '#44208#51228#45236#50669' URL'
         TabOrder = 2
         OnClick = btnGetPaymentURLClick
       end
@@ -85,7 +85,7 @@ object frmExample: TfrmExample
         Top = 112
         Width = 129
         Height = 25
-        Caption = '포인트 사용내역 URL'
+        Caption = #54252#51064#53944' '#49324#50857#45236#50669' URL'
         TabOrder = 3
         OnClick = btnGetUseHistoryURLClick
       end
@@ -95,14 +95,14 @@ object frmExample: TfrmExample
       Top = 16
       Width = 147
       Height = 122
-      Caption = '파트너과금 포인트'
+      Caption = #54028#53944#45320#44284#44552' '#54252#51064#53944
       TabOrder = 1
       object btnGetPartnerPoint: TButton
         Left = 8
         Top = 18
         Width = 127
         Height = 25
-        Caption = '파트너포인트 조회'
+        Caption = #54028#53944#45320#54252#51064#53944' '#51312#54924
         TabOrder = 0
         OnClick = btnGetPartnerPointClick
       end
@@ -111,7 +111,7 @@ object frmExample: TfrmExample
         Top = 48
         Width = 128
         Height = 25
-        Caption = '포인트 충전 URL'
+        Caption = #54252#51064#53944' '#52649#51204' URL'
         TabOrder = 1
         OnClick = btnGetPartnerURL_CHRGClick
       end
@@ -122,14 +122,14 @@ object frmExample: TfrmExample
     Top = 65
     Width = 144
     Height = 144
-    Caption = '담당자 관련'
+    Caption = #45812#45817#51088' '#44288#47144
     TabOrder = 9
     object btnRegistContact: TButton
       Left = 8
       Top = 16
       Width = 129
       Height = 25
-      Caption = '담당자 추가'
+      Caption = #45812#45817#51088' '#52628#44032
       TabOrder = 0
       OnClick = btnRegistContactClick
     end
@@ -138,7 +138,7 @@ object frmExample: TfrmExample
       Top = 80
       Width = 129
       Height = 25
-      Caption = '담당자 목록 조회'
+      Caption = #45812#45817#51088' '#47785#47197' '#51312#54924
       TabOrder = 1
       OnClick = btnListContactClick
     end
@@ -147,7 +147,7 @@ object frmExample: TfrmExample
       Top = 112
       Width = 129
       Height = 25
-      Caption = '담당자 정보 수정'
+      Caption = #45812#45817#51088' '#51221#48372' '#49688#51221
       TabOrder = 2
       OnClick = btnUpdateContactClick
     end
@@ -156,7 +156,7 @@ object frmExample: TfrmExample
       Top = 48
       Width = 129
       Height = 25
-      Caption = '담당자 정보 확인'
+      Caption = #45812#45817#51088' '#51221#48372' '#54869#51064
       TabOrder = 3
       OnClick = btnGetContactInfoClick
     end
@@ -166,7 +166,7 @@ object frmExample: TfrmExample
     Top = 66
     Width = 141
     Height = 118
-    Caption = '팝빌 기본 URL'
+    Caption = #54045#48716' '#44592#48376' URL'
     TabOrder = 8
   end
   object GroupBox2: TGroupBox
@@ -174,14 +174,14 @@ object frmExample: TfrmExample
     Top = 66
     Width = 148
     Height = 119
-    Caption = '포인트 관련'
+    Caption = #54252#51064#53944' '#44288#47144
     TabOrder = 6
     object btnGetChargeInfo: TButton
       Left = 8
       Top = 16
       Width = 128
       Height = 25
-      Caption = '과금정보 확인'
+      Caption = #44284#44552#51221#48372' '#54869#51064
       TabOrder = 0
       OnClick = btnGetChargeInfoClick
     end
@@ -191,14 +191,14 @@ object frmExample: TfrmExample
     Top = 67
     Width = 127
     Height = 118
-    Caption = '회원 정보'
+    Caption = #54924#50896' '#51221#48372
     TabOrder = 5
     object btnCheckID: TButton
       Left = 8
       Top = 49
       Width = 113
       Height = 25
-      Caption = '아이디 중복 확인'
+      Caption = #50500#51060#46356' '#51473#48373' '#54869#51064
       TabOrder = 0
       OnClick = btnCheckIDClick
     end
@@ -208,7 +208,7 @@ object frmExample: TfrmExample
     Top = 115
     Width = 128
     Height = 25
-    Caption = '조회 단가 확인'
+    Caption = #51312#54924' '#45800#44032' '#54869#51064
     TabOrder = 0
     OnClick = btnGetUnitCostClick
   end
@@ -235,7 +235,7 @@ object frmExample: TfrmExample
     Top = 147
     Width = 113
     Height = 25
-    Caption = '회원 가입'
+    Caption = #54924#50896' '#44032#51077
     TabOrder = 3
     OnClick = btnJoinMemberClick
   end
@@ -244,7 +244,7 @@ object frmExample: TfrmExample
     Top = 84
     Width = 113
     Height = 25
-    Caption = '가입여부 확인'
+    Caption = #44032#51077#50668#48512' '#54869#51064
     TabOrder = 4
     OnClick = btnCheckIsMemberClick
   end
@@ -253,7 +253,7 @@ object frmExample: TfrmExample
     Top = 82
     Width = 117
     Height = 25
-    Caption = '팝빌 로그인 URL'
+    Caption = #54045#48716' '#47196#44536#51064' URL'
     TabOrder = 7
     OnClick = btnGetAccessURLClick
   end
@@ -262,14 +262,14 @@ object frmExample: TfrmExample
     Top = 224
     Width = 569
     Height = 58
-    Caption = '휴폐업조회 관련 API'
+    Caption = #55092#54224#50629#51312#54924' '#44288#47144' API'
     TabOrder = 10
     object Label3: TLabel
       Left = 24
       Top = 24
       Width = 92
       Height = 13
-      Caption = '조회 사업자번호 :  '
+      Caption = #51312#54924' '#49324#50629#51088#48264#54840' :  '
     end
     object txtCheckCorpNum: TEdit
       Left = 132
@@ -285,7 +285,7 @@ object frmExample: TfrmExample
       Top = 15
       Width = 83
       Height = 31
-      Caption = '단건 조회'
+      Caption = #45800#44148' '#51312#54924
       TabOrder = 1
       OnClick = btnCheckCorpNumClick
     end
@@ -294,7 +294,7 @@ object frmExample: TfrmExample
       Top = 15
       Width = 88
       Height = 32
-      Caption = '대량 조회'
+      Caption = #45824#47049' '#51312#54924
       TabOrder = 2
       OnClick = btnCheckCorpNumsClick
     end
@@ -304,14 +304,14 @@ object frmExample: TfrmExample
     Top = 65
     Width = 144
     Height = 119
-    Caption = '회사정보 관련'
+    Caption = #54924#49324#51221#48372' '#44288#47144
     TabOrder = 11
     object btnGetCorpInfo: TButton
       Left = 12
       Top = 16
       Width = 121
       Height = 25
-      Caption = '회사정보 조회'
+      Caption = #54924#49324#51221#48372' '#51312#54924
       TabOrder = 0
       OnClick = btnGetCorpInfoClick
     end
@@ -320,7 +320,7 @@ object frmExample: TfrmExample
       Top = 48
       Width = 121
       Height = 25
-      Caption = '회사정보 수정'
+      Caption = #54924#49324#51221#48372' '#49688#51221
       TabOrder = 1
       OnClick = btnUpdateCorpInfoClick
     end
